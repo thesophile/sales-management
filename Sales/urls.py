@@ -19,11 +19,12 @@ from django.urls import path, include
 
 from user_section import views
 from admin_side import views as admin_views
-
+from Sales import views as sales_views
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('', sales_views.root, name='root'),
     path('admin/', admin.site.urls),
     path('user_section/', include('user_section.urls')),
     path("admin_side/", include("admin_side.urls")),
