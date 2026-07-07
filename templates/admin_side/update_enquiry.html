@@ -1,0 +1,19 @@
+<h2>Update Enquiry — {{ enquiry.name }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label>Contacted</label>
+        <select name="contacted">
+            <option value="yes" {% if enquiry.contacted %}selected{% endif %}>Yes</option>
+            <option value="no" {% if not enquiry.contacted %}selected{% endif %}>No</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Remarks</label>
+        <textarea name="remarks">{{ enquiry.remarks }}</textarea>
+    </div>
+
+    <button type="submit">Save</button>
+</form>

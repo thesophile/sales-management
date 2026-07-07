@@ -1,0 +1,40 @@
+<h2>Enquiries</h2>
+
+<form method="get">
+    <label>From</label>
+    <input type="date" name="from_date" value="{{ from_date }}">
+    <label>To</label>
+    <input type="date" name="to_date" value="{{ to_date }}">
+    <button type="submit">Filter</button>
+</form>
+
+<table border="1">
+    <tr>
+        <th>Date</th>
+        <th>Product</th>
+        <th>Category</th>
+        <th>Amount</th>
+        <th>Customer</th>
+        <th>Address</th>
+        <th>Quantity</th>
+        <th>Mobile</th>
+        <th>Contacted</th>
+        <th>Remarks</th>
+        <th>Action</th>
+    </tr>
+    {% for enquiry in enquiries %}
+    <tr>
+        <td>{{ enquiry.date|date:"d-m-Y H:i" }}</td>
+        <td>{{ enquiry.product.Title }}</td>
+        <td>{{ enquiry.product.category.name }}</td>
+        <td>₹{{ enquiry.product.amount }}</td>
+        <td>{{ enquiry.name }}</td>
+        <td>{{ enquiry.address }}</td>
+        <td>{{ enquiry.quantity }}</td>
+        <td>{{ enquiry.mobile_number }}</td>
+        <td>{{ enquiry.contacted|yesno:"Yes,No" }}</td>
+        <td>{{ enquiry.remarks }}</td>
+        <td><a href="{% url 'update_enquiry' enquiry.id %}">Update</a></td>
+    </tr>
+    {% endfor %}
+</table>

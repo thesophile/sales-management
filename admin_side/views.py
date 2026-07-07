@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-# Create your views here.
 
-from user_section.models import Product, Category
-
+from django.utils.dateparse import parse_date
+from user_section.models import Product, Category, Enquiry
 
 @staff_member_required(login_url='admin_login')
 def admin(request):
@@ -82,3 +81,38 @@ def delete_category(request, id):
     category = get_object_or_404(Category, id=id)
     category.delete()
     return redirect("category_list")
+
+
+
+
+
+@staff_member_required(login_url='admin_login')
+def enquiry_list(request):
+    enquiries = Enquiry.objects.select_related('product', 'product__category').order_by('-date')
+
+    from_date = request.GET.get("from_date")
+    to_date = request.GET.get("to_date")
+
+    if from_date:
+        enquiries = enquiries.filter(date__date__gte=parse_date(from_date))
+    if to_date:
+        enquiries = enquiries.filter(date__date__lte=parse_date(to_date))
+
+    return render(request, "admin_side/enquiry_list.html", {
+        "enquiries": enquiries,
+        "from_date": from_date or "",
+        "to_date": to_date or "",
+    })
+
+
+@staff_member_required(login_url='admin_login')
+def update_enquiry(request, id):
+    enquiry = get_object_or_404(Enquiry, id=id)
+
+    if request.method == "POST":
+        enquiry.contacted = request.POST.get("contacted") == "yes"
+        enquiry.remarks = request.POST.get("remarks", "")
+        enquiry.save()
+        return redirect("enquiry_list")
+
+    return render(request, "admin_side/update_enquiry.html", {"enquiry": enquiry})
