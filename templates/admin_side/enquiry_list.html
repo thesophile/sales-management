@@ -1,5 +1,6 @@
 <h2>Enquiries</h2>
 
+
 <form method="get">
     <label>From</label>
     <input type="date" name="from_date" value="{{ from_date }}">
@@ -7,6 +8,10 @@
     <input type="date" name="to_date" value="{{ to_date }}">
     <button type="submit">Filter</button>
 </form>
+
+<a href="{% url 'export_enquiries_pdf' %}?from_date={{ from_date }}&to_date={{ to_date }}">
+    Export as PDF
+</a>
 
 <table border="1">
     <tr>
@@ -31,10 +36,18 @@
         <td>{{ enquiry.name }}</td>
         <td>{{ enquiry.address }}</td>
         <td>{{ enquiry.quantity }}</td>
-        <td>{{ enquiry.mobile_number }}</td>
+        <td>
+            <a href="{% url 'customer_history' enquiry.mobile_number %}">{{ enquiry.mobile_number }}</a>
+        </td>
         <td>{{ enquiry.contacted|yesno:"Yes,No" }}</td>
         <td>{{ enquiry.remarks }}</td>
         <td><a href="{% url 'update_enquiry' enquiry.id %}">Update</a></td>
     </tr>
     {% endfor %}
 </table>
+
+
+
+<div style="height: 100px;"></div>
+
+<a href="{% url 'admin' %}">Back to Admin Panel</a>

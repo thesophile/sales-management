@@ -30,6 +30,9 @@ urlpatterns = [
     
     path('enquiries/', views.enquiry_list, name='enquiry_list'),
     path('enquiries/update/<int:id>/', views.update_enquiry, name='update_enquiry'),
+    path('enquiries/export/', views.export_enquiries_pdf, name='export_enquiries_pdf'),
+    
+    path('enquiries/customer/<str:mobile_number>/', views.customer_history, name='customer_history'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

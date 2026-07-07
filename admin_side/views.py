@@ -116,3 +116,50 @@ def update_enquiry(request, id):
         return redirect("enquiry_list")
 
     return render(request, "admin_side/update_enquiry.html", {"enquiry": enquiry})
+
+
+
+from xhtml2pdf import pisa
+from django.http import HttpResponse
+from django.template.loader import get_template
+
+@staff_member_required(login_url='admin_login')
+def export_enquiries_pdf(request):
+    enquiries = Enquiry.objects.select_related('product', 'product__category').order_by('-date')
+
+    from_date = request.GET.get("from_date")
+    to_date = request.GET.get("to_date")
+
+    if from_date:
+        enquiries = enquiries.filter(date__date__gte=parse_date(from_date))
+    if to_date:
+        enquiries = enquiries.filter(date__date__lte=parse_date(to_date))
+
+    template = get_template("admin_side/enquiry_pdf.html")
+    html = template.render({
+        "enquiries": enquiries,
+        "from_date": from_date,
+        "to_date": to_date,
+    })
+
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = 'attachment; filename="enquiry_report.pdf"'
+
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    if pisa_status.err:
+        return HttpResponse("Error generating PDF", status=500)
+
+    return response
+
+
+
+@staff_member_required(login_url='admin_login')
+def customer_history(request, mobile_number):
+    enquiries = Enquiry.objects.select_related('product', 'product__category').filter(
+        mobile_number=mobile_number
+    ).order_by('-date')
+
+    return render(request, "admin_side/customer_history.html", {
+        "enquiries": enquiries,
+        "mobile_number": mobile_number,
+    })
