@@ -1,0 +1,6 @@
+<h2>{% if category %}Edit{% else %}Add{% endif %} Category</h2>
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="name" value="{{ category.name|default:'' }}" required>
+    <button type="submit">Save</button>
+</form>

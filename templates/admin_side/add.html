@@ -11,8 +11,24 @@
     <input type="number" name="amount" step="0.01">
     <input type="file" name="image">
 
+    <label>Category</label>
+<select name="category" required>
+    {% for cat in categories %}
+        <option value="{{ cat.id }}" {% if product.category_id == cat.id %}selected{% endif %}>
+            {{ cat.name }}
+        </option>
+    {% endfor %}
+</select>
+
     <button type="submit">Save</button>
 </form>
+
+<br>
+<br>
+<br>
+
+
+<a href="{% url 'admin' %}">Home</a>
 
 </body>
 </html>

@@ -30,6 +30,27 @@
     <p>No products found.</p>
     {% endfor %}
 
+    <br>
+    <br>
+
+    <a href="{% url 'category_list' %}">Manage Categories</a>
+
+    <br>
+    <br>
+
+
+
+    <a href="{% url 'admin_change_password' %}">Change Password</a>
+
+    <br>
+    <br>
+
+
+    <form method="post" action="{% url 'admin_logout' %}">
+        {% csrf_token %}
+        <button type="submit">Log out</button>
+    </form>
+
 </body>
 
 </html>

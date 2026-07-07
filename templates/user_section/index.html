@@ -4,12 +4,21 @@
 
 
 
-<p>Here are a list of products: </p>
-{% for product in products %}
-<img src="{{ product.image.url }}" width="100">
-<p>{{ product.Title }} - ₹{{ product.amount }}</p>
-{% endfor %}
+<div>
+    <a href="{% url 'index' %}">All</a>
+    {% for cat in categories %}
+        <a href="{% url 'index' %}?category={{ cat.id }}">{{ cat.name }}</a>
+    {% endfor %}
+</div>
 
+{% for product in products %}
+    <div>
+        <img src="{{ product.image.url }}" alt="{{ product.Title }}" width="200" height="200">
+        <h3>{{ product.Title }}</h3>
+        <p>₹{{ product.amount }}</p>
+        <p>{{ product.category.name }}</p>
+    </div>
+{% endfor %}
 
 
 

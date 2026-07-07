@@ -1,0 +1,26 @@
+<h2>Edit Product</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Title</label>
+    <input type="text" name="Title" value="{{ product.Title }}" required>
+
+    <label>Amount</label>
+    <input type="number" name="amount" value="{{ product.amount }}" required>
+
+    <label>Category</label>
+    <select name="category" required>
+        {% for cat in categories %}
+            <option value="{{ cat.id }}" {% if product.category_id == cat.id %}selected{% endif %}>
+                {{ cat.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>Current Image</label>
+    <img src="{{ product.image.url }}" width="100" alt="{{ product.Title }}"><br>
+
+    <label>Replace Image (optional)</label>
+    <input type="file" name="image">
+
+    <button type="submit">Update Product</button>
+</form>
