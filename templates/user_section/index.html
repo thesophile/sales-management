@@ -17,6 +17,7 @@
         <h3>{{ product.Title }}</h3>
         <p>₹{{ product.amount }}</p>
         <p>{{ product.category.name }}</p>
+        <a href="{% url 'enquiry_form' product.id %}">Enquiry</a>
     </div>
 {% endfor %}
 
