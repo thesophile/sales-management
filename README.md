@@ -2,6 +2,21 @@
 
 This is a portfolio project for a sales management software.
 
+
+## Screenshots
+
+<p align="center">
+  <a href="screenshots/dash.png">
+    <img src="screenshots/dash.png" width="30%">
+  </a>
+  <a href="screenshots/edit_product.png">
+    <img src="screenshots/edit_product.png" width="30%">
+  </a>
+  <a href="screenshots/enquiry.png">
+    <img src="screenshots/enquiry.png" width="30%">
+  </a>
+</p>
+
 ## Local Installation
 
 1. Clone the project
