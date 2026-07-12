@@ -7,13 +7,13 @@ This is a portfolio project for a sales management software.
 
 <p align="center">
   <a href="screenshots/dash.png">
-    <img src="screenshots/dash.png" width="30%">
+    <img src="screenshots/dash.png" width="50%">
   </a>
   <a href="screenshots/edit_product.png">
-    <img src="screenshots/edit_product.png" width="30%">
+    <img src="screenshots/edit_product.png" width="50%">
   </a>
   <a href="screenshots/enquiry.png">
-    <img src="screenshots/enquiry.png" width="30%">
+    <img src="screenshots/enquiry.png" width="50%">
   </a>
 </p>
 
