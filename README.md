@@ -1,10 +1,35 @@
+# Sales Management
+
+This is a portfolio project for a sales management software.
+
+## Local Installation
+
+1. Clone the project
+
+1. Create a venv
+```
+Python3 -m venv myenv
+source myenv/bin/activate
+```
+1. Install dependencies
+
+> I have installed "Pillow" for image field and "xhtml2pdf" for pdf exports.
+> Please install those or install requirements.txt for replication.
+
+```
+pip install -r requirements.txt
+```
+1. Run development server
+```
+python3 manage.py runserver
+```
+
 
 > [!NOTE]
 > Use Username: staff1 and password: Pass@123 For demonstrative purposes
 
 
-I have installed "Pillow" for image field and "xhtml2pdf" for pdf exports.
-Please install those or install requirements.txt for replication.
+
 
 
 # Features
