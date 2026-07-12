@@ -6,6 +6,9 @@ This is a portfolio project for a sales management software.
 ## Screenshots
 
 <p align="center">
+  <a href="screenshots/enquiry.png">
+    <img src="screenshots/enquiry.png" width="50%">
+  </a>
   <a href="screenshots/dash.png">
     <img src="screenshots/dash.png" width="50%">
   </a>
@@ -13,7 +16,10 @@ This is a portfolio project for a sales management software.
     <img src="screenshots/edit_product.png" width="50%">
   </a>
   <a href="screenshots/enquiry.png">
-    <img src="screenshots/enquiry.png" width="50%">
+    <img src="screenshots/user_all.png" width="50%">
+  </a>
+  <a href="screenshots/enquiry.png">
+    <img src="screenshots/user_filtered.png" width="50%">
   </a>
 </p>
 
