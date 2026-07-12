@@ -1,35 +1,64 @@
-<!DOCTYPE html>
-<html>
-<body>
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+.card{
+    width:450px;
+    background:#fff;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,.1);
+}
+input,select{
+    width:100%;
+    padding:10px;
+    margin:12px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+button{
+    width:100%;
+    padding:12px;
+    background:#2c3e50;
+    color:white;
+    border:none;
+    border-radius:5px;
+}
+.home{
+    display:block;
+    margin-top:20px;
+    text-align:center;
+}
+</style>
+
+<div class="card">
 
 <h2>Add Product</h2>
 
 <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
+{% csrf_token %}
 
-    <input type="text" name="Title" placeholder="Title">
-    <input type="number" name="amount" step="0.01">
-    <input type="file" name="image">
+<input type="text" name="Title" placeholder="Title">
 
-    <label>Category</label>
+<input type="number" name="amount" step="0.01" placeholder="Price">
+
+<input type="file" name="image">
+
 <select name="category" required>
-    {% for cat in categories %}
-        <option value="{{ cat.id }}" {% if product.category_id == cat.id %}selected{% endif %}>
-            {{ cat.name }}
-        </option>
-    {% endfor %}
+{% for cat in categories %}
+<option value="{{ cat.id }}">{{ cat.name }}</option>
+{% endfor %}
 </select>
 
-    <button type="submit">Save</button>
+<button>Save Product</button>
+
 </form>
 
-<br>
-<br>
-<br>
+<a class="home" href="{% url 'admin' %}">← Back to Dashboard</a>
 
-
-<a href="{% url 'admin' %}">Home</a>
-
-</body>
-</html>
-
+</div>

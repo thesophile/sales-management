@@ -1,46 +1,107 @@
+<!DOCTYPE html>
 <html>
+
 <head>
     <style>
-        body { font-family: Helvetica, sans-serif; font-size: 10px; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #333; padding: 4px 6px; text-align: left; }
-        th { background-color: #eee; }
-        h2 { margin-bottom: 4px; }
+        body {
+            font-family: Helvetica, sans-serif;
+            font-size: 10px;
+            margin: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        p {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #d9d9d9;
+            border: 1px solid #444;
+            padding: 6px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        td {
+            border: 1px solid #444;
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .small {
+            font-size: 9px;
+        }
     </style>
 </head>
-<body>
-    <h2>Enquiry Report</h2>
-    {% if from_date or to_date %}
-        <p>From: {{ from_date|default:"—" }} To: {{ to_date|default:"—" }}</p>
-    {% endif %}
 
-    <table>
-        <tr>
-            <th>Date</th>
-            <th>Product</th>
-            <th>Category</th>
-            <th>Amount</th>
-            <th>Customer</th>
-            <th>Address</th>
-            <th>Quantity</th>
-            <th>Mobile</th>
-            <th>Contacted</th>
-            <th>Remarks</th>
-        </tr>
-        {% for enquiry in enquiries %}
-        <tr>
-            <td>{{ enquiry.date|date:"d-m-Y H:i" }}</td>
-            <td>{{ enquiry.product.Title }}</td>
-            <td>{{ enquiry.product.category.name }}</td>
-            <td>{{ enquiry.product.amount }}</td>
-            <td>{{ enquiry.name }}</td>
-            <td>{{ enquiry.address }}</td>
-            <td>{{ enquiry.quantity }}</td>
-            <td>{{ enquiry.mobile_number }}</td>
-            <td>{{ enquiry.contacted|yesno:"Yes,No" }}</td>
-            <td>{{ enquiry.remarks }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+<body>
+
+<h2>Enquiry Report</h2>
+
+{% if from_date or to_date %}
+<p>
+    <strong>From:</strong> {{ from_date|default:"—" }}
+    &nbsp;&nbsp;&nbsp;
+    <strong>To:</strong> {{ to_date|default:"—" }}
+</p>
+{% endif %}
+
+<table>
+
+    <tr>
+        <th>Date</th>
+        <th>Product</th>
+        <th>Category</th>
+        <th>Amount</th>
+        <th>Customer</th>
+        <th>Address</th>
+        <th>Qty</th>
+        <th>Mobile</th>
+        <th>Contacted</th>
+        <th>Remarks</th>
+    </tr>
+
+    {% for enquiry in enquiries %}
+    <tr>
+        <td>{{ enquiry.date|date:"d-m-Y H:i" }}</td>
+        <td>{{ enquiry.product.Title }}</td>
+        <td>{{ enquiry.product.category.name }}</td>
+        <td class="right">₹{{ enquiry.product.amount }}</td>
+        <td>{{ enquiry.name }}</td>
+        <td class="small">{{ enquiry.address }}</td>
+        <td class="center">{{ enquiry.quantity }}</td>
+        <td>{{ enquiry.mobile_number }}</td>
+        <td class="center">{{ enquiry.contacted|yesno:"Yes,No" }}</td>
+        <td>{{ enquiry.remarks|default:"-" }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="10" class="center">
+            No enquiries found.
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
 </body>
+
 </html>

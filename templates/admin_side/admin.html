@@ -1,69 +1,89 @@
-<!DOCTYPE html>
-<html>
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+    margin:0;
+}
+header{
+    background:#2c3e50;
+    color:#fff;
+    padding:20px 40px;
+}
+.container{
+    max-width:1000px;
+    margin:30px auto;
+}
+.actions{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-bottom:30px;
+}
+.btn{
+    text-decoration:none;
+    background:#2c3e50;
+    color:#fff;
+    padding:10px 18px;
+    border-radius:5px;
+}
+.card{
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:15px;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.buttons{
+    display:flex;
+    gap:10px;
+}
+button{
+    padding:8px 15px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+.edit{background:#3498db;color:white;}
+.delete{background:#e74c3c;color:white;}
+.logout{background:#555;color:white;}
+</style>
 
-<head>
-    <title>Products</title>
-</head>
+<header>
+<h2>Admin Dashboard</h2>
+</header>
 
-<body>
+<div class="container">
 
-    <h1>Hello, Admin!</h1>
-    
+<div class="actions">
+<a class="btn" href="{% url 'add_product' %}">Add Product</a>
+<a class="btn" href="{% url 'category_list' %}">Categories</a>
+<a class="btn" href="{% url 'enquiry_list' %}">Enquiries</a>
+<a class="btn" href="{% url 'admin_change_password' %}">Change Password</a>
+<a class="btn" href="/user_section">User Section</a>
+</div>
 
-    <p>This is Admin section <a href="/user_section">Go to User section</a></p>
+{% for product in products %}
+<div class="card">
+<div>
+<h3>{{ product.Title }}</h3>
+<p>₹{{ product.amount }}</p>
+</div>
 
-    <a href="{% url 'enquiry_list' %}">View Enquiries</a>
+<div class="buttons">
+<a href="{% url 'edit_product' product.id %}"><button class="edit">Edit</button></a>
+<a href="{% url 'delete_product' product.id %}"><button class="delete">Delete</button></a>
+</div>
+</div>
+{% empty %}
+<div class="card">No products found.</div>
+{% endfor %}
 
-    <br>
-    <br>
+<form method="post" action="{% url 'admin_logout' %}">
+{% csrf_token %}
+<button class="logout">Log Out</button>
+</form>
 
-    <a href="{% url 'add_product' %}">
-        <button>Add Product</button>
-    </a>
-
-    <hr>
-    {% for product in products %}
-    <p>
-        {{ product.Title }} - ₹{{ product.amount }}
-
-        <a href="{% url 'edit_product' product.id %}">
-            <button>Edit</button>
-        </a>
-
-        <a href="{% url 'delete_product' product.id %}">
-            <button>Delete</button>
-        </a>
-    </p>
-    {% empty %}
-    <p>No products found.</p>
-    {% endfor %}
-
-    <br>
-    <br>
-
-    <a href="{% url 'category_list' %}">Manage Categories</a>
-
-    <br>
-    <br>
-
-
-
-    <a href="{% url 'admin_change_password' %}">Change Password</a>
-
-    <br>
-    <br>
-
-
-    <form method="post" action="{% url 'admin_logout' %}">
-        {% csrf_token %}
-        <button type="submit">Log out</button>
-    </form>
-
-    <br>
-    <br>
-
-    <a href="/user_section">User section</a>
-
-</body>
-
-</html>
+</div>

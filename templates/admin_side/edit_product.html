@@ -1,26 +1,144 @@
-<h2>Edit Product</h2>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <label>Title</label>
-    <input type="text" name="Title" value="{{ product.Title }}" required>
+<!DOCTYPE html>
+<html>
 
-    <label>Amount</label>
-    <input type="number" name="amount" value="{{ product.amount }}" required>
+<head>
+    <title>Edit Product</title>
 
-    <label>Category</label>
-    <select name="category" required>
-        {% for cat in categories %}
-            <option value="{{ cat.id }}" {% if product.category_id == cat.id %}selected{% endif %}>
-                {{ cat.name }}
-            </option>
-        {% endfor %}
-    </select>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
 
-    <label>Current Image</label>
-    <img src="{{ product.image.url }}" width="100" alt="{{ product.Title }}"><br>
+        body{
+            background:#f5f5f5;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+        }
 
-    <label>Replace Image (optional)</label>
-    <input type="file" name="image">
+        .card{
+            width:500px;
+            background:#fff;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 4px 10px rgba(0,0,0,.1);
+        }
 
-    <button type="submit">Update Product</button>
-</form>
+        h2{
+            text-align:center;
+            color:#2c3e50;
+            margin-bottom:25px;
+        }
+
+        label{
+            display:block;
+            margin:15px 0 6px;
+            font-weight:bold;
+        }
+
+        input,
+        select{
+            width:100%;
+            padding:10px;
+            border:1px solid #ccc;
+            border-radius:5px;
+            font-size:15px;
+        }
+
+        .current-image{
+            margin:10px 0;
+            text-align:center;
+        }
+
+        .current-image img{
+            width:150px;
+            height:150px;
+            object-fit:cover;
+            border-radius:8px;
+            border:1px solid #ddd;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            margin-top:25px;
+            background:#2c3e50;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        button:hover{
+            background:#1d2935;
+        }
+
+        .back{
+            display:block;
+            text-align:center;
+            margin-top:20px;
+            text-decoration:none;
+            color:#2c3e50;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h2>Edit Product</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Title</label>
+        <input
+            type="text"
+            name="Title"
+            value="{{ product.Title }}"
+            required>
+
+        <label>Amount</label>
+        <input
+            type="number"
+            name="amount"
+            value="{{ product.amount }}"
+            step="0.01"
+            required>
+
+        <label>Category</label>
+        <select name="category" required>
+            {% for cat in categories %}
+                <option value="{{ cat.id }}" {% if product.category_id == cat.id %}selected{% endif %}>
+                    {{ cat.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Current Image</label>
+
+        <div class="current-image">
+            <img src="{{ product.image.url }}" alt="{{ product.Title }}">
+        </div>
+
+        <label>Replace Image (Optional)</label>
+        <input type="file" name="image">
+
+        <button type="submit">Update Product</button>
+    </form>
+
+    <a class="back" href="{% url 'admin' %}">
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+
+</html>

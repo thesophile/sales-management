@@ -1,14 +1,122 @@
-<h2>Categories</h2>
-<a href="{% url 'add_category' %}">+ Add Category</a>
-<ul>
-{% for cat in categories %}
-    <li>
-        {{ cat.name }}
-        <a href="{% url 'edit_category' cat.id %}">Edit</a>
-        <a href="{% url 'delete_category' cat.id %}">Delete</a>
-    </li>
-{% endfor %}
-</ul>
+<!DOCTYPE html>
+<html>
 
+<head>
+    <title>Categories</title>
 
-<a href="{% url 'admin' %}">Home</a>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f5f5f5;
+        }
+
+        header{
+            background:#2c3e50;
+            color:white;
+            padding:20px 40px;
+        }
+
+        .container{
+            max-width:900px;
+            margin:30px auto;
+        }
+
+        .top-bar{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:25px;
+        }
+
+        .btn{
+            text-decoration:none;
+            background:#2c3e50;
+            color:white;
+            padding:10px 18px;
+            border-radius:5px;
+        }
+
+        .card{
+            background:white;
+            padding:18px 20px;
+            margin-bottom:15px;
+            border-radius:10px;
+            box-shadow:0 4px 10px rgba(0,0,0,.08);
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .actions{
+            display:flex;
+            gap:10px;
+        }
+
+        .edit{
+            background:#3498db;
+            color:white;
+            text-decoration:none;
+            padding:8px 14px;
+            border-radius:5px;
+        }
+
+        .delete{
+            background:#e74c3c;
+            color:white;
+            text-decoration:none;
+            padding:8px 14px;
+            border-radius:5px;
+        }
+
+        .home{
+            display:inline-block;
+            margin-top:25px;
+            text-decoration:none;
+            background:#555;
+            color:white;
+            padding:10px 18px;
+            border-radius:5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>Manage Categories</h2>
+</header>
+
+<div class="container">
+
+    <div class="top-bar">
+        <h3>Categories</h3>
+        <a class="btn" href="{% url 'add_category' %}">+ Add Category</a>
+    </div>
+
+    {% for cat in categories %}
+    <div class="card">
+        <strong>{{ cat.name }}</strong>
+
+        <div class="actions">
+            <a class="edit" href="{% url 'edit_category' cat.id %}">Edit</a>
+            <a class="delete" href="{% url 'delete_category' cat.id %}">Delete</a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="card">
+        No categories found.
+    </div>
+    {% endfor %}
+
+    <a class="home" href="{% url 'admin' %}">← Back to Dashboard</a>
+
+</div>
+
+</body>
+</html>
