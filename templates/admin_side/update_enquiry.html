@@ -1,19 +1,124 @@
-<h2>Update Enquiry — {{ enquiry.name }}</h2>
+<!DOCTYPE html>
+<html>
 
-<form method="post">
-    {% csrf_token %}
-    <div class="form-group">
-        <label>Contacted</label>
-        <select name="contacted">
-            <option value="yes" {% if enquiry.contacted %}selected{% endif %}>Yes</option>
-            <option value="no" {% if not enquiry.contacted %}selected{% endif %}>No</option>
-        </select>
-    </div>
+<head>
+    <title>Update Enquiry</title>
 
-    <div class="form-group">
-        <label>Remarks</label>
-        <textarea name="remarks">{{ enquiry.remarks }}</textarea>
-    </div>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
 
-    <button type="submit">Save</button>
-</form>
+        body{
+            background:#f5f5f5;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+        }
+
+        .card{
+            width:500px;
+            max-width:90%;
+            background:#fff;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 4px 10px rgba(0,0,0,.1);
+        }
+
+        h2{
+            text-align:center;
+            color:#2c3e50;
+            margin-bottom:25px;
+        }
+
+        .form-group{
+            margin-bottom:20px;
+        }
+
+        label{
+            display:block;
+            margin-bottom:8px;
+            font-weight:bold;
+        }
+
+        select,
+        textarea{
+            width:100%;
+            padding:10px;
+            border:1px solid #ccc;
+            border-radius:5px;
+            font-size:15px;
+        }
+
+        textarea{
+            min-height:120px;
+            resize:vertical;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:#2c3e50;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        button:hover{
+            background:#1d2935;
+        }
+
+        .back{
+            display:block;
+            text-align:center;
+            margin-top:20px;
+            text-decoration:none;
+            color:#2c3e50;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h2>Update Enquiry</h2>
+
+    <p style="text-align:center; margin-bottom:25px; color:#666;">
+        Customer: <strong>{{ enquiry.name }}</strong>
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>Contacted</label>
+            <select name="contacted">
+                <option value="yes" {% if enquiry.contacted %}selected{% endif %}>Yes</option>
+                <option value="no" {% if not enquiry.contacted %}selected{% endif %}>No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Remarks</label>
+            <textarea name="remarks">{{ enquiry.remarks }}</textarea>
+        </div>
+
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <a class="back" href="{% url 'enquiry_list' %}">
+        ← Back to Enquiries
+    </a>
+
+</div>
+
+</body>
+
+</html>
